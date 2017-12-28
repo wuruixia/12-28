@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue1.js"></script>
+    <link rel="stylesheet" href="list.css">
+</head>
+
+<body>
+<div class="app">
+    <header>
+        <input type="text" placeholder="添加TODO" @keydown.13="add" v-model="con">
+    </header>
+     <div class="btn">
+         <input type="button" value="待完成" @click='checkstatus(0)' :class="{red:status==0}">
+         <input type="button" value="已完成" @click='checkstatus(1)' :class="{red:status==1}">
+         <input type="button" value="全部" @click='checkstatus(2)' :class="{red:status==2}">
+     </div>
+    <ul>
+        <li v-for="v in datas">
+            <div class="check" @click="check(v)" :class="{blue:v.state==1}"></div>
+            <span  v-if="v.edit" @click="editor(v)">
+                 {{v.title}}
+            </span>
+            <span v-else>
+               <input type="text" v-model="v.title" @blur="editor(v)" style="border:none">
+           </span>
+            <button @click="del(v.id)"><div class="dian"></div></button>
+        </li>
+        <div v-show="alls.length==0" style="font-size: 20px;text-align: center">暂无数据</div>
+    </ul>
+</div>
+<script src="list.js"></script>
+</body>
+</html>
